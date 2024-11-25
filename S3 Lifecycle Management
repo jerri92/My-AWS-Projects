@@ -1,0 +1,45 @@
+# Amazon S3 Lifecycle Management
+
+This repository contains information and configurations related to **Amazon S3 Lifecycle Management**, which helps automate actions on objects based on their age. This setup is designed to optimize storage usage and reduce costs.
+
+## Overview
+Amazon S3 Lifecycle Management enables you to manage storage effectively by applying rules that transition objects between storage classes or delete them after a specified period.
+
+### Rule Scope
+- The lifecycle rule is applied to **all objects** in the bucket.
+- It covers both **current** and **noncurrent** versions of objects.
+
+## Lifecycle Rule Actions
+
+### 1. Transition Noncurrent Versions of Objects Between Storage Classes
+- **Purpose**: Moves noncurrent (previous) versions of objects to a more cost-effective storage class.
+- **Configuration**:
+  - Noncurrent versions transition to **S3 Standard-IA (Infrequent Access)** after **30 days**.
+  - Retains the **two most recent versions** to balance cost efficiency with historical data retention.
+
+### 2. Permanently Delete Noncurrent Versions of Objects
+- **Purpose**: Deletes old, noncurrent versions of objects to control costs.
+- **Configuration**:
+  - Noncurrent versions are permanently deleted after **1 day**, ensuring only recent versions remain.
+
+### 3. Delete Expired Object Delete Markers or Incomplete Multipart Uploads
+- **Delete Markers**:
+  - Removes expired delete markers in versioned buckets to reduce clutter and manage storage space effectively.
+- **Incomplete Multipart Uploads**:
+  - Deletes partially uploaded data that was not completed, freeing up unused storage.
+
+## Benefits
+- **Cost Optimization**: Reduces storage costs by automatically transitioning or deleting objects based on predefined rules.
+- **Efficient Storage Management**: Maintains only necessary data while removing unnecessary or incomplete files.
+
+## Prerequisites
+- An Amazon S3 bucket with versioning enabled.
+- Basic knowledge of Amazon S3 storage classes.
+
+## Tools and Technologies Used
+- **Amazon S3**
+- **Lifecycle Rules**
+
+## License
+This project is open-source and available under the [MIT License](LICENSE).
+
